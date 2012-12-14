@@ -1,0 +1,28 @@
+<html>
+    <head>
+    <link rel="stylesheet" href="../src/concordion.css" type="text/css" />
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.1/angular.min.js" type="text/javascript"></script>
+        <script src="../src/concordion.js" type="text/javascript"></script>
+        <script type="text/javascript">
+            angular.module('MyProject', ['concordion'])
+                .controller('MyTestCase', function($scope){
+                    $scope.greetingFor = function(name){
+                        return 'Hello ' + name + '!';            
+                    };        
+                    $scope.goWrong = function(){ throw 'Wrong!!!'; };
+                    $scope.callMe = function(){ /* does nothing */ };
+                });​
+        </script>
+    </head>
+    <body  ng-app="MyProject" ng-controller="MyTestCase">
+        <p>
+            The greeting for user <span concordion:set="first.name">Bob</span>
+            will be:
+            <span concordion:assertequals="greetingFor(first.na
+            me)">Hello Bob!</span> or maybe it will be <span concordion:assertequals="greetingFor(first.name)">Allo Bob!</span>
+        </p>
+        <p>Then something will <span concordion:execute="callMe()">run well</span>.</p>
+        <p>And something else will <span concordion:execute="goWrong()">break</span>.</p>
+    </body>
+</html>
+​
